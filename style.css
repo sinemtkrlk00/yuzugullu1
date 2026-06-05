@@ -1,0 +1,450 @@
+/* --- GENEL SIFIRLAMA VE LÜKS TEMA DEĞİŞKENLERİ --- */
+:root {
+    /* ☕ KOYU MOD (Sıcak Espresso Kahvesi & Parlak Altın) */
+    --bg-dark: #1F1610 !important;      /* Derin Koyu Kahve / Espresso */
+    --bg-surface: #2D2017 !important;   /* Kartlar için Sıcak Çikolata Kahvesi */
+    --gold: #D4AF37 !important;         /* Lüks Altın Varak */
+    --gold-hover: #AA841C !important;   
+    --cream: #FDFBF7 !important;        /* Metinler için Yumuşak Altın Krem */
+    --text-muted: #C4B4A6 !important;   /* Sütlü Kahve / Vizon Tonu */
+    --header-bg: rgba(31, 22, 16, 0.95) !important;
+    --hero-overlay: rgba(31, 22, 16, 0.6) !important; /* Hero alanının arkasındaki lüks koyu kahve maske */
+    
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-sans: 'Montserrat', sans-serif;
+}
+
+/* 🌙 AÇIK MOD (Yumuşak Şampanya Köpüğü & Açık Altın Krem) */
+body.light-mode {
+    --bg-dark: #F7F3EB !important;      /* Açık Altın Krem / Şampanya Arka Plan */
+    --bg-surface: #FFFDF9 !important;   /* Kartlar için Yoğun İpek/Fildişi Krem */
+    --gold: #A37F14 !important;         /* Açık Tonda Net Duran Koyu Altın */
+    --gold-hover: #82640E !important;   
+    --cream: #2D2017 !important;        /* Metinler için Koyu Espresso Kahve */
+    --text-muted: #6E5A4D !important;   /* Okunabilir Yumuşak Kahve Tonu */
+    --header-bg: rgba(247, 243, 235, 0.95) !important;
+    --hero-overlay: rgba(247, 243, 235, 0.3) !important; /* Açık modda yumuşak şampanya maskesi */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--cream);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- LOGO VE HEADER (Flexbox) --- */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 1.5rem 0;
+    transition: background-color 0.5s ease, border-color 0.5s ease;
+}
+
+.header-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.logo {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 2px;
+}
+
+.nav-menu ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.5s ease;
+}
+
+.nav-menu a:hover {
+    color: var(--gold);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* --- LÜKS TOGGLE SWITCH ŞALTERİ --- */
+.theme-toggle-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+}
+
+.toggle-track {
+    width: 65px;
+    height: 32px;
+    background-color: #120A05;
+    border: 1px solid var(--gold);
+    border-radius: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+    transition: background-color 0.5s ease, border-color 0.5s ease;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+}
+
+body.light-mode .toggle-track {
+    background-color: var(--bg-surface);
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+    z-index: 2;
+    transition: color 0.5s ease, opacity 0.3s ease;
+}
+
+.icon-moon { color: var(--gold); }
+.icon-sun { color: var(--text-muted); opacity: 0.4; }
+
+body.light-mode .icon-moon { opacity: 0.4; }
+body.light-mode .icon-sun { color: var(--gold); opacity: 1; }
+
+.toggle-thumb {
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, var(--gold), #AA841C);
+    border-radius: 50%;
+    z-index: 1;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+body.light-mode .toggle-thumb {
+    transform: translateX(31px);
+}
+
+/* --- HERO SLIDER ALANI --- */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--bg-dark); /* Gri boşluk kalmaması için taban rengi */
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 1;
+}
+
+/* Görsellerin önündeki filtreyi dinamik değişkene bağlayarak griliği yok ettik */
+.slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--hero-overlay);
+    z-index: 1;
+    transition: background-color 0.5s ease;
+}
+
+.slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3; /* Yazıların maskenin üstünde kalması için */
+    max-width: 800px;
+    padding: 0 2rem;
+}
+
+.hero-content h1 {
+    font-family: var(--font-serif);
+    font-size: 4rem;
+    color: var(--cream); 
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.btn-primary:hover {
+    background-color: var(--gold);
+    color: var(--bg-dark);
+}
+
+/* --- HİKAYEMİZ (About) --- */
+.about-section {
+    background-color: var(--bg-dark);
+}
+
+.section-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 0;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.subtitle {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: var(--gold);
+    letter-spacing: 3px;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+h2 {
+    font-family: var(--font-serif);
+    font-size: 2.8rem;
+    color: var(--cream);
+}
+
+.gold-divider {
+    width: 60px;
+    border: 0;
+    height: 2px;
+    background-color: var(--gold);
+    margin: 1.5rem 0;
+}
+
+.about-text p {
+    color: var(--text-muted);
+}
+
+.about-image img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border: 1px solid var(--gold);
+    padding: 10px;
+    background-color: var(--bg-surface);
+}
+
+/* --- MENÜ (Grid Kartları) --- */
+.menu-section {
+    background-color: var(--bg-dark);
+}
+
+.section-title { text-align: center; margin-bottom: 4rem; }
+.gold-divider.center { margin: 1.5rem auto; }
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+}
+
+.menu-item {
+    background-color: var(--bg-surface);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    transition: all 0.4s ease;
+    overflow: hidden;
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold);
+}
+
+.menu-img-wrapper {
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+}
+
+.menu-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.menu-info { padding: 1.5rem; }
+
+.menu-info h3 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--cream);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-info h3 span {
+    color: var(--gold);
+    font-family: var(--font-sans);
+    font-size: 1.2rem;
+}
+
+.menu-info p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* --- İLETİŞİM ALANI --- */
+.contact-section {
+    background-color: var(--bg-surface);
+    border-top: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+}
+
+.info-details p {
+    margin-bottom: 1rem;
+    color: var(--text-muted);
+}
+
+.info-details strong { color: var(--gold); }
+
+.contact-form { display: flex; flex-direction: column; gap: 1.5rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.form-group label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+
+.form-group input, .form-group textarea {
+    background-color: var(--bg-dark);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 1rem;
+    color: var(--cream);
+    font-family: var(--font-sans);
+    transition: all 0.5s ease;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    border-color: var(--gold);
+}
+
+.btn-submit {
+    background-color: var(--gold);
+    color: var(--bg-dark);
+    border: none;
+    padding: 1rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* --- FOOTER --- */
+.main-footer {
+    text-align: center;
+    padding: 3rem 0;
+    background-color: var(--bg-dark);
+    border-top: 1px solid rgba(212, 175, 55, 0.1);
+    color: var(--text-muted);
+}
+
+/* Slider Butonları */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 1rem;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+.prev { left: 20px; }
+.next { right: 20px; }
+
+/* --- RESPONSIVE / MOBIL --- */
+.menu-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+.menu-toggle .bar { width: 25px; height: 2px; background-color: var(--gold); }
+
+@media (max-width: 768px) {
+    .menu-toggle { display: flex; }
+    .nav-menu { position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--header-bg); display: none; }
+    .nav-menu.active { display: block; }
+    .nav-menu ul { flex-direction: column; padding: 2rem; text-align: center; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
